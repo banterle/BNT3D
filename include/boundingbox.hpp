@@ -246,7 +246,11 @@ INLINE bool CheckBBoxBBox(const VECTOR3 *aMax, const VECTOR3 *aMin,
  */
 INLINE float AreaBBox(const VECTOR3 *bMax, const VECTOR3 *bMin)
 {
-    return VECTOR3::DistanceSq(bMax, bMin) * 2.0f;
+    float dx = bMax->x - bMin->x;
+    float dy = bMax->y - bMin->y;
+    float dz = bMax->z - bMin->z;
+    
+    return 2.0f * (dx * dy + dy * dz + dz * dx);
 }
 
 /**

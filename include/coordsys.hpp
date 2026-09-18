@@ -69,7 +69,7 @@ INLINE VECTOR3 *BaseProjection(       VECTOR3 *pOut,
                                 const VECTOR3 *V2,
                                 const VECTOR3 *pV)
 {
-#ifdef _POINTER_CHECK
+#ifdef POINTER_CHECK
     if (pOut == NULL) {
         pOut = new VECTOR3();
     }

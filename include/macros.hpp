@@ -65,9 +65,9 @@ inline float madfrac(float a, float b)
  * @param x
  * @return sinf(acosf(x)) using trigonometry
  */
-inline float sinacos(x)
+inline float sinacos(float x)
 {
-    sqrtf(MAX(1.0f - x * x, 0.0f));
+    return sqrtf(MAX(1.0f - x * x, 0.0f));
 }
 
 /**
@@ -77,7 +77,7 @@ inline float sinacos(x)
  */
 inline static float sinc(float x)
 {
-    return (fabs(x) < 1e-6f) ? sinf(x) / x : 1.0f;
+    return (fabs(x) < 1e-6f) ? 1.0f : sinf(x) / x;
 }
 
 }

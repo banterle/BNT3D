@@ -161,9 +161,13 @@ public:
      * @param v
      * @return
      */
-    VECTOR4 operator = (const float v[4])
+    VECTOR4& operator = (const float v[4])
     {
-        return VECTOR4(v[0], v[1], v[2], v[3]);
+        x = v[0];
+        y = v[1];
+        z = v[2];
+        w = v[3];
+        return *this;
     }
 
     /**

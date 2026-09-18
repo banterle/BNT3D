@@ -231,8 +231,8 @@ INLINE bool Refract(VECTOR3 *pOut, const VECTOR3 *dir, const VECTOR3 *nor, float
     
     float k = 1.0f - eta * eta * (1.0f - NdotI * NdotI);
     if (k <= 0.0f) {
-#ifdef _TOTAL_REFRACTION_OFF
-        *out = *dir;
+#ifdef TOTAL_REFRACTION_OFF
+        *pOut = *dir;
         return true;
 #else
         Reflect(pOut, &I, &N);

@@ -193,7 +193,7 @@ public:
      */
     VECTOR2 *Normalize(VECTOR2 *pOut)
     {
-    #ifdef _NORMALIZATIONPOINTER_CHECK
+    #ifdef NORMALIZATIONPOINTER_CHECK
         if (pOut == NULL) {
             pOut = new VECTOR2(x, y);
         }
