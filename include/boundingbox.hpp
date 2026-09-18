@@ -246,7 +246,7 @@ INLINE bool CheckBBoxBBox(const VECTOR3 *aMax, const VECTOR3 *aMin,
  */
 INLINE float AreaBBox(const VECTOR3 *bMax, const VECTOR3 *bMin)
 {
-    return VECTOR3::DistanceSq(bMin, bMax) * 2.0f;
+    return VECTOR3::DistanceSq(bMax, bMin) * 2.0f;
 }
 
 /**
@@ -308,8 +308,8 @@ INLINE void ClosestCube(const VECTOR3 *bMax, const VECTOR3 *bMin, VECTOR3 *aMax,
     *aMax = c + len;
     *aMin = c - len;
     
-    *aMax = VECTOR3(1.0f, 1.0f, 1.0f);
-    *aMin = VECTOR3(-1.0f, -1.0f, -1.0f);
+    //*aMax = VECTOR3(1.0f, 1.0f, 1.0f);
+    //*aMin = VECTOR3(-1.0f, -1.0f, -1.0f);
 }
 
 /**

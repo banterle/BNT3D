@@ -11,6 +11,8 @@
 #ifndef BNT3D_VECTOR2_HPP
 #define BNT3D_VECTOR2_HPP
 
+#include <cstdio>
+
 namespace bnt3d{
 
 /**
@@ -114,9 +116,11 @@ public:
      * @param a
      * @return
      */
-    VECTOR2 operator *=(const float &a)
+    VECTOR2& operator *=(const float &a)
     {
-        return VECTOR2(x * a, y * a);
+        x *= a;
+        y *= a;
+        return *this;
     }
 
     /**
@@ -126,7 +130,7 @@ public:
      */
     VECTOR2 operator /(const float &a)
     {
-        if (x != 0.0f) {
+        if (a != 0.0f) {
             return VECTOR2(x / a, y / a);
         }
         else {

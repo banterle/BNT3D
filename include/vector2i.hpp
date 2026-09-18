@@ -64,7 +64,7 @@ public:
         
         //Y clipping
         y = y > (height - 1) ? (height - 1) : y;
-        y = y < 0 ? 0 : x;
+        y = y < 0 ? 0 : y;
     }
 };
 

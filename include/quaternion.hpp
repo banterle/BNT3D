@@ -58,7 +58,7 @@ public:
         x = (sinAlpha * pV->x);
         y = (sinAlpha * pV->y);
         z = (sinAlpha * pV->z);
-        w = cosf(sinAlpha);
+        w = cosf(alpha);
     }
     
     /**
@@ -105,17 +105,27 @@ public:
             }
         #endif
         
-        float theta = acosf(QUATERNION::Dot(pQ1, pQ2));
+        float dot = QUATERNION::Dot(pQ1, pQ2);
         
-        float sinTheta = sinf(theta);
-        
-        float t1 = sinf((1.0f - t) * theta) / sinTheta;
-        float t2 = sinf(t * theta) / sinTheta;
-        
-        pOut->x = pQ1->x * t1 + pQ2->x * t2;
-        pOut->y = pQ1->y * t1 + pQ2->y * t2;
-        pOut->z = pQ1->z * t1 + pQ2->z * t2;
-        pOut->w = pQ1->w * t1 + pQ2->w * t2;
+        if (dot < 1.0f) {
+            float theta = acosf(dot);
+            
+            float sinTheta = sinf(theta);
+            
+            float t1 = sinf((1.0f - t) * theta) / sinTheta;
+            float t2 = sinf(t * theta) / sinTheta;
+            
+            pOut->x = pQ1->x * t1 + pQ2->x * t2;
+            pOut->y = pQ1->y * t1 + pQ2->y * t2;
+            pOut->z = pQ1->z * t1 + pQ2->z * t2;
+            pOut->w = pQ1->w * t1 + pQ2->w * t2;
+        } else {
+            pOut->x = pQ1->x + t * (pQ2->x - pQ1->x);
+            pOut->y = pQ1->y + t * (pQ2->y - pQ1->y);
+            pOut->z = pQ1->z + t * (pQ2->z - pQ1->z);
+            pOut->w = pQ1->w + t * (pQ2->w - pQ1->w);
+
+        }
         
         return pOut;
     }

@@ -850,10 +850,9 @@ public:
         }
     #endif
         
-        pOut->x = pV->x * data[0] + pV->y * data[4] + pV->z * data[8] + data[12];
-        pOut->y = pV->x * data[1] + pV->y * data[5] + pV->z * data[9] + data[13];
+        pOut->x = pV->x * data[0] + pV->y * data[4] + pV->z * data[8]  + data[12];
+        pOut->y = pV->x * data[1] + pV->y * data[5] + pV->z * data[9]  + data[13];
         pOut->z = pV->x * data[2] + pV->y * data[6] + pV->z * data[10] + data[14];
-        
         float w = pV->x * data[3] + pV->y * data[7] + pV->z * data[11] + data[15];
         
         if (fabsf(w) > 0.0f) {

@@ -10,6 +10,8 @@
 #ifndef BNT3D_VECTOR3_HPP
 #define BNT3D_VECTOR3_HPP
 
+#include <cstdio>
+
 namespace bnt3d{
 
 /**
@@ -155,9 +157,12 @@ public:
      * @param v
      * @return
      */
-    VECTOR3 operator = (const float v[3])
+    VECTOR3& operator = (const float v[3])
     {
-        return VECTOR3(v[0], v[1], v[2]);
+        x = v[0];
+        y = v[1];
+        z = v[2];
+        return *this;
     }
     
     /**
