@@ -134,18 +134,18 @@ public:
         #endif
         
         QUATERNION pQ2_t = *pQ2;
-        float dot = QUATERNION::Dot(pQ1, &pQ2_t);
+        float cosTheta = QUATERNION::Dot(pQ1, &pQ2_t);
         
-        if (dot < 0.0f) {
+        if (cosTheta < 0.0f) {
             pQ2_t.x = -pQ2_t.x;
             pQ2_t.y = -pQ2_t.y;
             pQ2_t.z = -pQ2_t.z;
             pQ2_t.w = -pQ2_t.z;
-            dot = -dot;
+            cosTheta = -cosTheta;
         }
         
-        if (dot < 1.0f) {
-            float theta = acosf(dot);
+        if (cosTheta < 1.0f) {
+            float theta = acosf(cosTheta);
             
             float sinTheta = sinf(theta);
             
