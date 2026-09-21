@@ -137,10 +137,10 @@ public:
         float dot = QUATERNION::Dot(pQ1, &pQ2_t);
         
         if (dot < 0.0f) {
-            pQ2_t.x = -pQ2.x;
-            pQ2_t.y = -pQ2.y;
-            pQ2_t.z = -pQ2.z;
-            pQ2_t.w = -pQ2.z;
+            pQ2_t.x = -pQ2_t.x;
+            pQ2_t.y = -pQ2_t.y;
+            pQ2_t.z = -pQ2_t.z;
+            pQ2_t.w = -pQ2_t.z;
             dot = -dot;
         }
         
