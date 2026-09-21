@@ -264,7 +264,7 @@ INLINE bool RefractNeg(VECTOR3 *pOut, const VECTOR3 *dir, const VECTOR3 *nor, fl
     float k = 1.0f - eta * eta * (1.0f - NdotI * NdotI);
     
     if (k <= 0.0f) {
-#ifdef _TOTAL_REFRACTION_OFF
+#ifdef TOTAL_REFRACTION_OFF
         *out = *dir;
         return true;
 #else

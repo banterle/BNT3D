@@ -29,6 +29,7 @@ public:
      */
     QUATERNION()
     {
+        Identity();
     }
     
     /**
@@ -41,6 +42,25 @@ public:
         y = 0.0f;
         z = 0.0f;
         w = 1.0f;
+    }
+
+    /**
+     * @brief Normalize normalizes the quaternion.
+     * @return
+     */
+    void Normalize()
+    {
+        float length_sq = QUATERNION::Dot(this, this);
+        
+        if (length_sq > 0.0f) {
+            float length = sqrtf(length_sq);
+            x /= length;
+            y /= length;
+            z /= length;
+            w /= length;
+        } else {
+            Identity();
+        }
     }
     
     /**
@@ -69,13 +89,21 @@ public:
      */
     void RotationVec3toVec3(const VECTOR3 * pV0, const VECTOR3 * pV1)
     {
-        VECTOR3 axis;
-        VECTOR3::Cross(&axis, pV0, pV1);
-        
         float cosAlpha = VECTOR3::Dot(pV0, pV1);
-        float alpha = acosf(cosAlpha);
         
-        RotationAxis(&axis, alpha);
+        if (fabsf(cosAlpha) < 1.0f) {
+            
+            VECTOR3 axis;
+            VECTOR3::Cross(&axis, pV0, pV1);
+            axis.Normalize();
+            
+            float alpha = acosf(cosAlpha);
+            
+            RotationAxis(&axis, alpha);
+            
+        } else {
+            Identity();
+        }
     }
     
     /**
@@ -107,6 +135,14 @@ public:
         
         float dot = QUATERNION::Dot(pQ1, pQ2);
         
+        if (dot < 0.0f) {
+            q2.x = -q2.x;
+            q2.y = -q2.y;
+            q2.z = -q2.z;
+            q2.w = -q2.z;
+            dot = -dot;
+        }
+        
         if (dot < 1.0f) {
             float theta = acosf(dot);
             
@@ -126,6 +162,8 @@ public:
             pOut->w = pQ1->w + t * (pQ2->w - pQ1->w);
 
         }
+        
+        pOut->Normalize();
         
         return pOut;
     }

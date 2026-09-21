@@ -117,6 +117,15 @@ public:
     }
     
     /**
+     * @brief Trace
+     * @return
+     */
+    float Trace()
+    {
+        return  data[0] + data[4] + data[8];
+    }
+    
+    /**
      * @brief Inverse
      * @param inv
      * @return

@@ -11,6 +11,8 @@
 #ifndef BNT3D_VECTOR4_HPP
 #define BNT3D_VECTOR4_HPP
 
+#include <cmath>
+
 namespace bnt3d{
 
 /**
@@ -22,6 +24,10 @@ public:
 
     VECTOR4()
     {
+        x = 0.0f;
+        y = 0.0f;
+        z = 0.0f;
+        w = 0.0f;
     }
 
     /**

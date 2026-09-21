@@ -250,7 +250,11 @@ public:
         
         if (fabsf(det) < 1e-9f) {
             std::printf("MATRIX2::Inverse -- Error: Determinant is near zero.\n");
-            return new MATRIX2(0.0f, 0.0f, 0.0f, 0.0f);
+            out->data[0] = 0.0f;
+            out->data[1] = 0.0f;
+            out->data[2] = 0.0f;
+            out->data[3] = 0.0f;
+            return out;
         }
         
         out->Init(data[3] / det, -data[1] / det, -data[2] / det, data[0] / det);

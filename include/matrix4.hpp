@@ -9,6 +9,10 @@
 #ifndef BNT3D_MATRIX4_HPP
 #define BNT3D_MATRIX4_HPP
 
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+
 #include "vector3.hpp"
 #include "vector4.hpp"
 #include "quaternion.hpp"
@@ -522,13 +526,17 @@ public:
             pOut = new QUATERNION();
         }
             
-        float tr = Trace();
+        //trace of the rotation matrix; i.e., the 3x3 upper left block.
+        float tr = data[0] + data[5] + data[10];
         
-        pOut->w = sqrtf(MAX(tr, 0.0f)) / 2.0f;
-        
-        pOut->x = sqrtf(MAX( data[0] - data[5] - data[10] + data[15], 0.0f)) / 2.0f;
-        pOut->y = sqrtf(MAX(-data[0] + data[5] - data[10] + data[15], 0.0f)) / 2.0f;
-        pOut->z = sqrtf(MAX(-data[0] - data[5] + data[10] + data[15], 0.0f)) / 2.0f;
+        if (tr > 0.0f) {
+            pOut->w = sqrtf(MAX(tr + 1.0f, 0.0f)) * 2.0f;
+            float w4 = 4.0f / pOut->w;
+            pOut->x = sqrtf(MAX( data[0] - data[5] - data[10] + data[15], 0.0f)) * w4;
+            pOut->y = sqrtf(MAX(-data[0] + data[5] - data[10] + data[15], 0.0f)) * w4;
+            pOut->z = sqrtf(MAX(-data[0] - data[5] + data[10] + data[15], 0.0f)) * w4;
+        } else {
+        }
         
         return pOut;
     }
@@ -625,9 +633,9 @@ public:
     void LookAtRH(const VECTOR3 *pEye, const VECTOR3 *pAt, const VECTOR3 *pUp)
     {
         VECTOR3 x, y, z;
-        z.x = pAt->x - pEye->x;
-        z.y = pAt->y - pEye->y;
-        z.z = pAt->z - pEye->z;
+        z.x = pEye->x - pAt->x;
+        z.y = pEye->y - pAt->y;
+        z.z = pEye->z - pAt->z;
         
         z.Normalize();
         
@@ -651,9 +659,9 @@ public:
         data[10] = z.z;
         data[11] = 0.0f;
         
-        data[12] = VECTOR3::Dot(&x, pEye);
-        data[13] = VECTOR3::Dot(&y, pEye);
-        data[14] = VECTOR3::Dot(&z, pEye);
+        data[12] = -VECTOR3::Dot(&x, pEye);
+        data[13] = -VECTOR3::Dot(&y, pEye);
+        data[14] = -VECTOR3::Dot(&z, pEye);
         data[15] = 1.0f;
     }
 
