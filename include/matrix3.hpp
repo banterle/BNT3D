@@ -29,6 +29,7 @@ public:
      */
     MATRIX3()
     {
+        Identity();
     }
     
     /**
@@ -130,31 +131,31 @@ public:
      * @param inv
      * @return
      */
-    MATRIX3 *Inverse(MATRIX3 *inv)
+    MATRIX3 *Inverse(MATRIX3 *pOut)
     {
-        if (inv == NULL) {
-            inv = new MATRIX3();
+        if (pOut == NULL) {
+            pOut = new MATRIX3();
         }
         
         float det = Determinant();
         if (fabsf(det) <= 1e-9f) {
             std::printf("MATRIX3::Inverse -- Error: Near to zero determinant\n");
-            return inv;
+            return pOut;
         }
         
-        inv->data[0] = (data[4] * data[8] - data[5] * data[7]) / det;
-        inv->data[1] = -(data[1] * data[8] - data[2] * data[7]) / det;
-        inv->data[2] = (data[1] * data[5] - data[2] * data[4]) / det;
+        pOut->data[0] = (data[4] * data[8] - data[5] * data[7]) / det;
+        pOut->data[1] = -(data[1] * data[8] - data[2] * data[7]) / det;
+        pOut->data[2] = (data[1] * data[5] - data[2] * data[4]) / det;
         
-        inv->data[3] = -(data[3] * data[8] - data[5] * data[6]) / det;
-        inv->data[4] = (data[0] * data[8] - data[2] * data[6]) / det;
-        inv->data[5] = -(data[0] * data[5] - data[2] * data[3]) / det;
+        pOut->data[3] = -(data[3] * data[8] - data[5] * data[6]) / det;
+        pOut->data[4] = (data[0] * data[8] - data[2] * data[6]) / det;
+        pOut->data[5] = -(data[0] * data[5] - data[2] * data[3]) / det;
         
-        inv->data[6] = (data[3] * data[7] - data[4] * data[6]) / det;
-        inv->data[7] = -(data[0] * data[7] - data[1] * data[6]) / det;
-        inv->data[8] = (data[0] * data[4] - data[1] * data[3]) / det;
+        pOut->data[6] = (data[3] * data[7] - data[4] * data[6]) / det;
+        pOut->data[7] = -(data[0] * data[7] - data[1] * data[6]) / det;
+        pOut->data[8] = (data[0] * data[4] - data[1] * data[3]) / det;
         
-        return inv;
+        return pOut;
     }
     
     /**

@@ -223,6 +223,12 @@ INLINE VECTOR3 *ReflectNeg(VECTOR3 *pOut, const VECTOR3 *dir, const VECTOR3 *nor
  */
 INLINE bool Refract(VECTOR3 *pOut, const VECTOR3 *dir, const VECTOR3 *nor, float n1, float n2)
 {
+#ifdef POINTER_CHECK
+    if (pOut == NULL) {
+        pOut = new VECTOR3();
+    }
+#endif
+    
     VECTOR3 I = (*dir);
     VECTOR3 N = (*nor);
     
@@ -255,6 +261,12 @@ INLINE bool Refract(VECTOR3 *pOut, const VECTOR3 *dir, const VECTOR3 *nor, float
  */
 INLINE bool RefractNeg(VECTOR3 *pOut, const VECTOR3 *dir, const VECTOR3 *nor, float n1, float n2)
 {
+#ifdef POINTER_CHECK
+    if (pOut == NULL) {
+        pOut = new VECTOR3();
+    }
+#endif
+    
     VECTOR3 I = (*dir);
     VECTOR3 N = (*nor);
     
@@ -265,7 +277,7 @@ INLINE bool RefractNeg(VECTOR3 *pOut, const VECTOR3 *dir, const VECTOR3 *nor, fl
     
     if (k <= 0.0f) {
 #ifdef TOTAL_REFRACTION_OFF
-        *out = *dir;
+        *pOut = *dir;
         return true;
 #else
         ReflectNeg(pOut, &I, &N);

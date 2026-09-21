@@ -32,6 +32,7 @@ public:
      */
     MATRIX4()
     {
+        Identity();
     }
     
     /**

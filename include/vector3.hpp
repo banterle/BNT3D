@@ -208,8 +208,9 @@ public:
                 return y; break;
             case 2:
                 return z; break;
+            default:
+                throw std::out_of_range("VECTOR3 index must be 0, 1, or 2\n");
         }
-        return -1.0f;
     }
     
     /**

@@ -29,6 +29,7 @@ public:
      */
     MATRIX2()
     {
+        Identity();
     }
     
     /**
