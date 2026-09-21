@@ -11,6 +11,8 @@
 #ifndef BNT3D_VECTOR3I_HPP
 #define BNT3D_VECTOR3I_HPP
 
+#include <stdexcept>
+
 namespace bnt3d{
 
 /**

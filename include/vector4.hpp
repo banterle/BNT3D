@@ -12,6 +12,7 @@
 #define BNT3D_VECTOR4_HPP
 
 #include <cmath>
+#include <stdexcept>
 
 namespace bnt3d{
 
