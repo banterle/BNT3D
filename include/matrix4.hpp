@@ -496,30 +496,29 @@ public:
      */
     void FromQuaternion(const QUATERNION * pQ)
     {
+        Identity();
+
         if (pQ == NULL) {
             return;
         }
         
-        if(!(pQ->Norm() > 0.0f)) {
-            return;
-        }
-
-        Identity();
+        QUATERNION Q = *pQ;
+        Q.Normalize();        
         
-        float qx2 = pQ->x * pQ->x;
-        float qy2 = pQ->y * pQ->y;
-        float qz2 = pQ->z * pQ->z;
+        float qx2 = Q.x * Q.x;
+        float qy2 = Q.y * Q.y;
+        float qz2 = Q.z * Q.z;
         
         data[0] = 1.0f - 2.0f * (qz2 + qy2);
-        data[1] = 2.0f * (pQ->x * pQ->y - pQ->w * pQ->z);
-        data[2] = 2.0f * (pQ->x * pQ->z + pQ->w * pQ->y);
+        data[1] = 2.0f * (Q.x * Q.y + Q.w * Q.z);
+        data[2] = 2.0f * (Q.x * Q.z - Q.w * Q.y);
         
-        data[4] = 2.0f * (pQ->x * pQ->y + pQ->w * pQ->z);
+        data[4] = 2.0f * (Q.x * Q.y - Q.w * Q.z);
         data[5] = 1.0f - 2.0f * (qx2 + qz2);
-        data[6] = 2.0f * (pQ->y * pQ->z - pQ->w * pQ->x);
+        data[6] = 2.0f * (Q.y * Q.z + Q.w * Q.x);
         
-        data[8] = 2.0f * (pQ->x * pQ->z - pQ->w * pQ->y);
-        data[9] = 2.0f * (pQ->y * pQ->z + pQ->w * pQ->x);
+        data[8] = 2.0f * (Q.x * Q.z + Q.w * Q.y);
+        data[9] = 2.0f * (Q.y * Q.z - Q.w * Q.x);
         data[10] = 1.0f - 2.0f * (qx2 + qy2);
     }
     
@@ -539,7 +538,7 @@ public:
         float tr = data[0] + data[5] + data[10];
         
         if (tr > 0.0f) {
-            pOut->w = sqrtf(MAX(tr + 1.0f, 0.0f)) * 2.0f;
+            pOut->w = sqrtf(tr + 1.0f) * 2.0f;
             float w4 = 4.0f / pOut->w;
             pOut->x = sqrtf(MAX( data[0] - data[5] - data[10] + data[15], 0.0f)) * w4;
             pOut->y = sqrtf(MAX(-data[0] + data[5] - data[10] + data[15], 0.0f)) * w4;

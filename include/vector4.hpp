@@ -221,7 +221,7 @@ public:
         case 3:
             return w;
         default:
-            throw std::out_of_range("VECTOR4 index must be 0, 1, or 2\n");
+            throw std::out_of_range("VECTOR4 index must be 0, 1, 2, or 3\n");
         }
     }
 
@@ -242,7 +242,7 @@ public:
             case 3:
                 return w;
             default:
-                throw std::out_of_range("VECTOR4 index must be 0, 1, or 2\n");
+                throw std::out_of_range("VECTOR4 index must be 0, 1, 2, or 3\n");
         }
     }
     

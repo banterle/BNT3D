@@ -12,6 +12,7 @@
 #define BNT3D_QUATERNION_HPP
 
 #include <cmath>
+#include <cstdio>
 
 namespace bnt3d {
 
@@ -48,7 +49,7 @@ public:
      * @brief Norm gets the norm of the quaternion.
      * @return
      */
-    float Norm()
+    float Norm() const
     {
         return QUATERNION::Dot(this, this);
     }
@@ -176,6 +177,18 @@ public:
         pOut->Normalize();
         
         return pOut;
+    }
+    
+    
+    /**
+     * @brief Print prints the matrix.
+     * @return
+     */
+    void Print()
+    {
+        std::printf("\n");
+        std::printf("%3.3f %3.3f %3.3f %3.3f\n", x, y, z, w);
+        std::printf("\n");
     }
 };
 
