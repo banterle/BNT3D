@@ -14,13 +14,12 @@
 
 using namespace bnt3d;
 
-int main(int argc, char **argv)
+void test(VECTOR3 axis, float angle)
 {
-    std::printf("Create a quaternion - axis (0,1,0) angle PI/4");
+    std::printf("Create a quaternion");
     QUATERNION q;
-    VECTOR3 pV(0.0f, 1.0f, 0.0f);
-    pV.Normalize();
-    q.RotationAxis(&pV, C_PI / 4.0f);
+    axis.Normalize();
+    q.RotationAxis(&axis, angle);
     q.Print();
     
     std::printf("Convert the quaternion into a matrix");
@@ -32,23 +31,13 @@ int main(int argc, char **argv)
     QUATERNION q_b;
     mtx_q.ToQuaternion(&q_b);
     q_b.Print();
-    
-    std::printf("Create a quaternion - axis (1,0,0) angle PI");
-    QUATERNION q2;
-    VECTOR3 pV2(1.0f, 0.0f, 0.0f);
-    pV2.Normalize();
-    q2.RotationAxis(&pV2, C_PI);
-    q2.Print();
-    
-    std::printf("Convert the quaternion into a matrix");
-    MATRIX4 mtx_q2;
-    mtx_q2.FromQuaternion(&q2);
-    mtx_q2.Print();
-    
-    std::printf("Convert the matrix back to a quanternion");
-    QUATERNION q_b2;
-    mtx_q2.ToQuaternion(&q_b2);
-    q_b2.Print();
-    
+}
+
+int main(int argc, char **argv)
+{
+    test(VECTOR3(0.0f, 1.0f, 0.0f), C_PI / 4.0f);
+    test(VECTOR3(1.0f, 0.0f, 0.0f), C_PI * 5.0f / 6.0f);
+    test(VECTOR3(0.0f, 1.0f, 0.0f), C_PI * 5.0f / 6.0f);
+    test(VECTOR3(0.0f, 0.0f, 1.0f), C_PI * 5.0f / 6.0f);
     return 0;
 }

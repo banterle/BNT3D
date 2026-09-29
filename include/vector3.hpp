@@ -498,9 +498,9 @@ public:
      */
     void Filescanf(FILE* file)
     {
-        auto retx = std::fscanf(file, "%f", &x);
-        auto rety = std::fscanf(file, "%f", &y);
-        auto retz = std::fscanf(file, "%f", &z);
+        std::fscanf(file, "%f", &x);
+        std::fscanf(file, "%f", &y);
+        std::fscanf(file, "%f", &z);
     }
 };
 

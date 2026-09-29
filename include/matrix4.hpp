@@ -546,6 +546,47 @@ public:
             pOut->y = (data[8] - data[2]) * w4;
             pOut->z = (data[1] - data[4]) * w4;
         } else {
+            if ((data[0] > data[5]) && (data[0] > data[10])) {
+                float w4 = sqrtf(MAX(0.0f, data[0] - data[5] - data[10] + 1.0f));
+                
+                if(w4 > 0.0f) {
+                    pOut->x = w4 / 2.0f;
+                    w4 = 1.0f / (2.0f * w4);
+                    pOut->y = (data[1] + data[4]) * w4;
+                    pOut->z = (data[2] + data[8]) * w4;
+                    pOut->w = (data[6] - data[9]) * w4;
+                } else {
+                    pOut->Identity();
+                }
+            } else {
+                if (data[5] > data[10]) {
+                    
+                    float w4 = sqrtf(MAX(0.0f, data[5] - data[0] - data[10] + 1.0f));
+                    if(w4 > 0.0f) {
+                        pOut->y = w4 / 2.0f;
+                        w4 = 1.0f / (2.0f * w4);
+                        pOut->x = (data[1] + data[4]) * w4;
+                        pOut->z = (data[6] + data[9]) * w4;
+                        pOut->w = (data[8] - data[2]) * w4;
+                    } else {
+                        pOut->Identity();
+                    }
+                } else {
+
+                    float w4 = sqrtf(MAX(0.0f, data[10] - data[0] - data[5] + 1.0f));
+                    if(w4 > 0.0f) {
+                        pOut->z = w4 / 2.0f;
+                        w4 = 1.0f / (2.0f * w4);
+                        pOut->x = (data[2] + data[8]) * w4;
+                        pOut->y = (data[6] + data[9]) * w4;
+                        pOut->w = (data[1] - data[4]) * w4;
+
+                    } else {
+                        pOut->Identity();
+                    }
+                }
+            }
+                        
         }
         
         return pOut;
