@@ -503,7 +503,7 @@ public:
         }
         
         QUATERNION Q = *pQ;
-        Q.Normalize();        
+        Q.Normalize();
         
         float qx2 = Q.x * Q.x;
         float qy2 = Q.y * Q.y;
@@ -538,11 +538,13 @@ public:
         float tr = data[0] + data[5] + data[10];
         
         if (tr > 0.0f) {
-            pOut->w = sqrtf(tr + 1.0f) * 2.0f;
-            float w4 = 4.0f / pOut->w;
-            pOut->x = sqrtf(MAX( data[0] - data[5] - data[10] + data[15], 0.0f)) * w4;
-            pOut->y = sqrtf(MAX(-data[0] + data[5] - data[10] + data[15], 0.0f)) * w4;
-            pOut->z = sqrtf(MAX(-data[0] - data[5] + data[10] + data[15], 0.0f)) * w4;
+            pOut->w = sqrtf(tr + 1.0f);
+            float w4 = 1.0f / (2.0f * pOut->w);
+            pOut->w /= 2.0f;
+            
+            pOut->x = (data[6] - data[9]) * w4;
+            pOut->y = (data[8] - data[2]) * w4;
+            pOut->z = (data[1] - data[4]) * w4;
         } else {
         }
         

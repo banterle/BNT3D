@@ -19,6 +19,7 @@ int main(int argc, char **argv)
     std::printf("Create a quaternion - axis (0,1,0) angle PI/4");
     QUATERNION q;
     VECTOR3 pV(0.0f, 1.0f, 0.0f);
+    pV.Normalize();
     q.RotationAxis(&pV, C_PI / 4.0f);
     q.Print();
     
