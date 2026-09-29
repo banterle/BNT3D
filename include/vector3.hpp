@@ -204,11 +204,11 @@ public:
     {
         switch (i) {
             case 0:
-                return x; break;
+                return x;
             case 1:
-                return y; break;
+                return y;
             case 2:
-                return z; break;
+                return z;
             default:
                 throw std::out_of_range("VECTOR3 index must be 0, 1, or 2\n");
         }
@@ -410,7 +410,7 @@ public:
         }
 #endif
         
-        pOut->x = acosf(y);
+        pOut->x = acosf(CLAMPi(y, -1.0f, 1.0f));
         pOut->y = atan2f(z, x);
         
         return pOut;
@@ -446,7 +446,7 @@ public:
         
         //(theta,phi)->(y,x)
         pOut->x = 1.0f - ((atan2f(z, -x) * C_INV_PI) * 0.5f + 0.5f);
-        pOut->y = (acosf(y) * C_INV_PI);
+        pOut->y = (acosf(CLAMPi(y, -1.0f, 1.0f)) * C_INV_PI);
         
         return pOut;
     }

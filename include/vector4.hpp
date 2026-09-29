@@ -213,15 +213,15 @@ public:
     {
         switch (i) {
         case 0:
-            return x; break;
+            return x;
         case 1:
-            return y; break;
+            return y;
         case 2:
-            return z; break;
+            return z;
         case 3:
-            return w; break;
+            return w;
         default:
-            throw std::out_of_range("VECTOR3 index must be 0, 1, or 2\n");
+            throw std::out_of_range("VECTOR4 index must be 0, 1, or 2\n");
         }
     }
 
@@ -233,16 +233,17 @@ public:
     float &operator [](int i)
     {
         switch (i) {
-        case 0:
-            return x; break;
-        case 1:
-            return y; break;
-        case 2:
-            return z; break;
-        case 3:
-            return w; break;
+            case 0:
+                return x;
+            case 1:
+                return y;
+            case 2:
+                return z;
+            case 3:
+                return w;
+            default:
+                throw std::out_of_range("VECTOR4 index must be 0, 1, or 2\n");
         }
-        return x;
     }
     
     /**

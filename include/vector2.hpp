@@ -134,8 +134,7 @@ public:
     {
         if (a != 0.0f) {
             return VECTOR2(x / a, y / a);
-        }
-        else {
+        } else {
             return VECTOR2(x, y);
         }
     }

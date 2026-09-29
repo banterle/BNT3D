@@ -220,8 +220,10 @@ public:
      */
     void operator /= (float v)
     {
-        for (int i = 0; i < 4; i++) {
-            data[i] /= v;
+        if (v!= 0.0f) {
+            for (int i = 0; i < 4; i++) {
+                data[i] /= v;
+            }
         }
     }
     
@@ -251,10 +253,7 @@ public:
         
         if (fabsf(det) < 1e-9f) {
             std::printf("MATRIX2::Inverse -- Error: Determinant is near zero.\n");
-            out->data[0] = 0.0f;
-            out->data[1] = 0.0f;
-            out->data[2] = 0.0f;
-            out->data[3] = 0.0f;
+            out->Identity();
             return out;
         }
         

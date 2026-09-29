@@ -43,6 +43,15 @@ public:
         z = 0.0f;
         w = 1.0f;
     }
+    
+    /**
+     * @brief Norm gets the norm of the quaternion.
+     * @return
+     */
+    float Norm()
+    {
+        return QUATERNION::Dot(this, this);
+    }
 
     /**
      * @brief Normalize normalizes the quaternion.
@@ -50,8 +59,8 @@ public:
      */
     void Normalize()
     {
-        float length_sq = QUATERNION::Dot(this, this);
-        
+        float length_sq = Norm();
+                
         if (length_sq > 0.0f) {
             float length = sqrtf(length_sq);
             x /= length;
@@ -140,12 +149,12 @@ public:
             pQ2_t.x = -pQ2_t.x;
             pQ2_t.y = -pQ2_t.y;
             pQ2_t.z = -pQ2_t.z;
-            pQ2_t.w = -pQ2_t.z;
+            pQ2_t.w = -pQ2_t.w;
             cosTheta = -cosTheta;
         }
         
         if (cosTheta < 1.0f) {
-            float theta = acosf(cosTheta);
+            float theta = acosf(CLAMPi(cosTheta, -1.0f, 1.0f));
             
             float sinTheta = sinf(theta);
             

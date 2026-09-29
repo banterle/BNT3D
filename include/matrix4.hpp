@@ -496,6 +496,14 @@ public:
      */
     void FromQuaternion(const QUATERNION * pQ)
     {
+        if (pQ == NULL) {
+            return;
+        }
+        
+        if(!(pQ->Norm() > 0.0f)) {
+            return;
+        }
+
         Identity();
         
         float qx2 = pQ->x * pQ->x;
@@ -726,10 +734,15 @@ public:
         
         float d = zf - zn;
         
-        data[0] = 2.0f / float(w);
-        data[5] = 2.0f / float(h);
-        data[10] = 1.0f / d;
-        data[14] = -zn / d;
+        if((w > 0.0f) && (h > 0.0f)) {
+            data[0] = 2.0f / float(w);
+            data[5] = 2.0f / float(h);
+        }
+        
+        if (d > 0.0f) {
+            data[10] = 1.0f / d;
+            data[14] = -zn / d;
+        }
     }
 
     /**
@@ -746,10 +759,15 @@ public:
         
         float d = zn - zf;
         
-        data[0] = 2.0f / float(w);
-        data[5] = 2.0f / float(h);
-        data[10] = 1.0f / d;
-        data[14] = zn / d;
+        if((w > 0.0f) && (h > 0.0f)) {
+            data[0] = 2.0f / float(w);
+            data[5] = 2.0f / float(h);
+        }
+        
+        if (d > 0.0f) {
+            data[10] = 1.0f / d;
+            data[14] = zn / d;
+        }
     }
 
     /**
@@ -778,16 +796,18 @@ public:
     MATRIX4* Inverse(MATRIX4 *pOut = NULL) const
     {
         float det = Determinant();
-        
-        if (fabsf(det) <= 1e-9f) {
-            return pOut;
-        }
-        
+                
     #ifdef POINTER_CHECK
         if (pOut == NULL) {
             pOut = new MATRIX4();
         }
     #endif
+
+        if (fabsf(det) <= 1e-9f) {
+            pOut->Identity();
+            return pOut;
+        }
+
         
         MATRIX4 I, pM, pM2, pM3;
         

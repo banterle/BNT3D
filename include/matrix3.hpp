@@ -40,6 +40,8 @@ public:
     {
         if (data != NULL) {
             memcpy(this->data, data, 9 * sizeof(float));
+        } else {
+            Identity();
         }
     }
 
@@ -52,7 +54,6 @@ public:
             data[i] = 0.0f;
         }
     }
-
     
     /**
      * @brief Identity
