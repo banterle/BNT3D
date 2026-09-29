@@ -220,7 +220,7 @@ public:
             y /= length;
         }
         else {
-    #ifdef _DEBUG_POINER_CHECK
+    #ifdef DEBUG_POINER_CHECK
             printf("VECTOR2::Normalize(): Normalization Error!\n");
     #endif
         }
