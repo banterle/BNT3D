@@ -19,41 +19,6 @@
 
 namespace  bnt3d {
 
-#define COORDSYS_EPSILON 1e-6f
-
-/**
- * @brief CreateOrthoNormalBase create an orthonormal base from a vector (n).
- * @param n
- * @param u
- * @param v
- */
-INLINE void CreateOrthoNormalBase(const VECTOR3 *n, VECTOR3 *u, VECTOR3 *v)
-{
-    if (fabsf(n->z) > COORDSYS_EPSILON) {
-        v->x = 0.0f;
-        v->y = n->z;
-        v->z = -n->y;
-    }
-    else {
-        if (fabsf(n->x) > COORDSYS_EPSILON) {
-            v->x = n->z;
-            v->y = 0.0f;
-            v->z = -n->x;
-        }
-        else {
-            v->x = n->y;
-            v->y = 0.0f;
-            v->z = 0.0f;
-        }
-    }
-    
-    v->Normalize();
-    VECTOR3::Cross(u, v, n);
-    
-    //NOTE: This should not be required
-    u->Normalize();
-}
-
 /**
  * @brief BaseProjection projects onto a base.
  * @param pOut

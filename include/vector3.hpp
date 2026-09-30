@@ -15,6 +15,8 @@
 
 namespace bnt3d{
 
+#define COORDSYS_EPSILON 1e-6f
+
 /**
  * @brief The VECTOR3 class
  */
@@ -451,6 +453,11 @@ public:
         return pOut;
     }
     
+    /**
+     * @brief GetBasis get a E0, E1, E2 vector that is distant from this
+     * @param pOut returning vector
+     * @return
+     */
     VECTOR3 *GetBasis(VECTOR3 *pOut)
     {
 #ifdef POINTER_CHECK
@@ -473,6 +480,38 @@ public:
                 *pOut.z = 1.0f;
             }
         }
+    }
+    
+    /**
+     * @brief CreateOrthoNormalBase create an orthonormal base from a vector (this).
+     * @param u
+     * @param v
+     */
+    INLINE void CreateOrthoNormalBase(VECTOR3 *u, VECTOR3 *v)
+    {
+        if (fabsf(z) > COORDSYS_EPSILON) {
+            v->x = 0.0f;
+            v->y =    z;
+            v->z =   -y;
+        }
+        else {
+            if (fabsf(x) > COORDSYS_EPSILON) {
+                v->x =    z;
+                v->y = 0.0f;
+                v->z =   -x;
+            }
+            else {
+                v->x =    y;
+                v->y = 0.0f;
+                v->z = 0.0f;
+            }
+        }
+        
+        v->Normalize();
+        VECTOR3::Cross(u, v, n);
+        
+        //NOTE: This should not be required
+        u->Normalize();
     }
         
     /**
