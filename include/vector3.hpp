@@ -15,8 +15,6 @@
 
 namespace bnt3d{
 
-#define COORDSYS_EPSILON 1e-6f
-
 /**
  * @brief The VECTOR3 class
  */
@@ -489,13 +487,25 @@ public:
      */
     INLINE void CreateOrthoNormalBase(VECTOR3 *u, VECTOR3 *v)
     {
-        if (fabsf(z) > COORDSYS_EPSILON) {
+        if (fabsf(z) > fabsf(x)) {
+            v->x = 0.0f;
+            v->y =    z;
+            v->z =   -y;
+        } else {
+            v->x =    y;
+            v->y =   -x;
+            v->z = 0.0f;
+        }
+        
+        /*
+        float epsilon = 1e-6f;
+        if (fabsf(z) > epsilon) {
             v->x = 0.0f;
             v->y =    z;
             v->z =   -y;
         }
         else {
-            if (fabsf(x) > COORDSYS_EPSILON) {
+            if (fabsf(x) > epsilon) {
                 v->x =    z;
                 v->y = 0.0f;
                 v->z =   -x;
@@ -506,6 +516,7 @@ public:
                 v->z = 0.0f;
             }
         }
+        */
         
         v->Normalize();
         VECTOR3::Cross(u, v, n);
