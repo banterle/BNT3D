@@ -487,14 +487,20 @@ public:
      */
     INLINE void CreateOrthoNormalBase(VECTOR3 *u, VECTOR3 *v)
     {
-        if (fabsf(z) > fabsf(x)) {
-            v->x = 0.0f;
-            v->y =    z;
-            v->z =   -y;
-        } else {
-            v->x =    y;
-            v->y =   -x;
+        if ((x > y) && (x > z)) {
+            v->x =   -y;
+            v->y =    x;
             v->z = 0.0f;
+        } else {
+            if (y > z) {
+                v->x = 0.0f;
+                v->y =   -z;
+                v->z =    y;
+            } else {
+                v->x =    z;
+                v->y = 0.0f;
+                v->z =   -x;
+            }
         }
         
         /*
