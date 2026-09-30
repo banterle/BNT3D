@@ -450,6 +450,30 @@ public:
         
         return pOut;
     }
+    
+    VECTOR3 *GetBasis(VECTOR3 *pOut)
+    {
+#ifdef POINTER_CHECK
+        if (pOut == NULL) {
+            pOut = new VECTOR2();
+        }
+#endif
+        if(fabsf(x) <= fabsf(y) && fabsf(x) <= fabsf(z)) {
+            *pOut.x = 1.0f;
+            *pOut.y = 0.0f;
+            *pOut.z = 0.0f;
+        } else {
+            if(fabsf(y) <= fabsf(z)) {
+                *pOut.x = 0.0f;
+                *pOut.y = 1.0f;
+                *pOut.z = 0.0f;
+            } else {
+                *pOut.x = 0.0f;
+                *pOut.y = 0.0f;
+                *pOut.z = 1.0f;
+            }
+        }
+    }
         
     /**
      * @brief FromTexcoord converts from a pixel position (x,y) to a VECTOR3 direction.

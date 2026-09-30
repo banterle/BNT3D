@@ -99,7 +99,13 @@ public:
      */
     void RotationVec3toVec3(const VECTOR3 * pV0, const VECTOR3 * pV1)
     {
-        float cosAlpha = VECTOR3::Dot(pV0, pV1);
+        #ifdef POINTER_CHECK
+            if ((pV0 == NULL) || (pV1 == NULL)) {
+                return;
+            }
+        #endif
+        
+        float cosAlpha = CLAMPi(VECTOR3::Dot(pV0, pV1), -1.0f, 1.0f);
         
         if (fabsf(cosAlpha) < 1.0f) {
             
@@ -138,10 +144,16 @@ public:
     static QUATERNION* QuaternionSlerp(QUATERNION *pOut, const QUATERNION *pQ1, const QUATERNION *pQ2, float t)
     {
         #ifdef POINTER_CHECK
+            if ((pQ1 == NULL) || (pQ2 == NULL)) {
+                return pOut;
+            }
+        
             if (pOut == NULL) {
                 pOut = new QUATERNION();
             }
         #endif
+        
+        t = CLAMPi(t, 0.0f, 1.0f);
         
         QUATERNION pQ2_t = *pQ2;
         float cosTheta = QUATERNION::Dot(pQ1, &pQ2_t);
@@ -154,8 +166,10 @@ public:
             cosTheta = -cosTheta;
         }
         
-        if (cosTheta < 1.0f) {
-            float theta = acosf(CLAMPi(cosTheta, -1.0f, 1.0f));
+        if (cosTheta < (1.0f - 1e-6f)) {
+            cosTheta = MIN(cosTheta, 1.0f);
+            
+            float theta = acosf(cosTheta);
             
             float sinTheta = sinf(theta);
             
@@ -171,7 +185,6 @@ public:
             pOut->y = pQ1->y + t * (pQ2_t.y - pQ1->y);
             pOut->z = pQ1->z + t * (pQ2_t.z - pQ1->z);
             pOut->w = pQ1->w + t * (pQ2_t.w - pQ1->w);
-
         }
         
         pOut->Normalize();
