@@ -105,17 +105,17 @@ public:
             }
         #endif
         
-        float epislon = 1e-6f;
+        float epsilon = 1e-6f;
         
         float cosAlpha = CLAMPi(VECTOR3::Dot(pV0, pV1), -1.0f, 1.0f);
         
-        if(coAlpha > (1.0f-epsilon)) {
+        if(cosAlpha > (1.0f - epsilon)) {
             Identity();
             return;
         }
         
-        if(cosAlpha >= (epsilon-1.0f)) {
-            VECTOR3 axis;
+        VECTOR3 axis;
+        if(cosAlpha >= (epsilon - 1.0f)) {
             VECTOR3::Cross(&axis, pV0, pV1);
             axis.Normalize();
             
@@ -128,7 +128,7 @@ public:
             
             VECTOR3::Cross(&axis, pV0, &basis);
             axis.Normalize();
-            RotationAxis(axis, C_PI);
+            RotationAxis(&axis, C_PI);
         }
     }
     

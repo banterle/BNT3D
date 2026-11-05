@@ -456,26 +456,25 @@ public:
      * @param pOut returning vector
      * @return
      */
-    VECTOR3 *GetBasis(VECTOR3 *pOut)
-    {
+    VECTOR3 *GetBasis(VECTOR3 *pOut) const {
 #ifdef POINTER_CHECK
         if (pOut == NULL) {
-            pOut = new VECTOR2();
+            pOut = new VECTOR3();
         }
 #endif
         if(fabsf(x) <= fabsf(y) && fabsf(x) <= fabsf(z)) {
-            *pOut.x = 1.0f;
-            *pOut.y = 0.0f;
-            *pOut.z = 0.0f;
+            pOut->x = 1.0f;
+            pOut->y = 0.0f;
+            pOut->z = 0.0f;
         } else {
             if(fabsf(y) <= fabsf(z)) {
-                *pOut.x = 0.0f;
-                *pOut.y = 1.0f;
-                *pOut.z = 0.0f;
+                pOut->x = 0.0f;
+                pOut->y = 1.0f;
+                pOut->z = 0.0f;
             } else {
-                *pOut.x = 0.0f;
-                *pOut.y = 0.0f;
-                *pOut.z = 1.0f;
+                pOut->x = 0.0f;
+                pOut->y = 0.0f;
+                pOut->z = 1.0f;
             }
         }
     }
@@ -485,8 +484,7 @@ public:
      * @param u
      * @param v
      */
-    INLINE void CreateOrthoNormalBase(VECTOR3 *u, VECTOR3 *v)
-    {
+    INLINE void CreateOrthoNormalBase(VECTOR3 *u, VECTOR3 *v) const {
         if ((x > y) && (x > z)) {
             v->x =   -y;
             v->y =    x;
@@ -525,7 +523,7 @@ public:
         */
         
         v->Normalize();
-        VECTOR3::Cross(u, v, n);
+        VECTOR3::Cross(u, v, this);
         
         //NOTE: This should not be required
         u->Normalize();
